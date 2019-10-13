@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Participante Videoconferencia</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo participante</th>
+      <th>Apellido</th>
+      <th>Nombres</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @participante_videoconferencia.each do |participante_videoconferencium| %>
+      <tr>
+        <td><%= participante_videoconferencium.tipo_participante %></td>
+        <td><%= participante_videoconferencium.apellido %></td>
+        <td><%= participante_videoconferencium.nombres %></td>
+        <td><%= participante_videoconferencium.email %></td>
+        <td><%= link_to 'Show', participante_videoconferencium %></td>
+        <td><%= link_to 'Edit', edit_participante_videoconferencium_path(participante_videoconferencium) %></td>
+        <td><%= link_to 'Destroy', participante_videoconferencium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Participante Videoconferencium', new_participante_videoconferencium_path %>

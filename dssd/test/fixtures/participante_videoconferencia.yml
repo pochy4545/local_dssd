@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_participante: 
+  apellido: MyString
+  nombres: MyString
+  email: MyString
+
+two:
+  tipo_participante: 
+  apellido: MyString
+  nombres: MyString
+  email: MyString

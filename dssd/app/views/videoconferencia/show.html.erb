@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @videoconferencium.fecha %>
+</p>
+
+<p>
+  <strong>Hora:</strong>
+  <%= @videoconferencium.hora %>
+</p>
+
+<p>
+  <strong>Unidad:</strong>
+  <%= @videoconferencium.unidad %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @videoconferencium.estado %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @videoconferencium.tipo %>
+</p>
+
+<p>
+  <strong>Nro causa:</strong>
+  <%= @videoconferencium.nro_causa %>
+</p>
+
+<p>
+  <strong>Motivo:</strong>
+  <%= @videoconferencium.motivo %>
+</p>
+
+<p>
+  <strong>Solicitante:</strong>
+  <%= @videoconferencium.solicitante %>
+</p>
+
+<%= link_to 'Edit', edit_videoconferencium_path(@videoconferencium) %> |
+<%= link_to 'Back', videoconferencia_path %>

@@ -1,0 +1,2 @@
+module ParticipanteVideoconferenciaHelper
+end

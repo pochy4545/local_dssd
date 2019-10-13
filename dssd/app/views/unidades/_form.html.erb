@@ -1,0 +1,37 @@
+<%= form_with(model: unidade, local: true) do |form| %>
+  <% if unidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(unidade.errors.count, "error") %> prohibited this unidade from being saved:</h2>
+
+      <ul>
+      <% unidade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numeroUnidad %>
+    <%= form.text_field :numeroUnidad %>
+  </div>
+
+  <div class="field">
+    <%= form.label :coordenadas %>
+    <%= form.text_field :coordenadas %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

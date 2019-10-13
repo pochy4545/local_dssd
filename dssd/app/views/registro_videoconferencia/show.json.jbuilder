@@ -1,0 +1,1 @@
+json.partial! "registro_videoconferencia/registro_videoconferencium", registro_videoconferencium: @registro_videoconferencium

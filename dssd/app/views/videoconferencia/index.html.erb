@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Videoconferencia</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Unidad</th>
+      <th>Estado</th>
+      <th>Tipo</th>
+      <th>Nro causa</th>
+      <th>Motivo</th>
+      <th>Solicitante</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @videoconferencias.each do |videoconferencium| %>
+      <tr>
+        <td><%= videoconferencium.fecha %></td>
+        <td><%= videoconferencium.hora %></td>
+        <td><%= videoconferencium.unidad %></td>
+        <td><%= videoconferencium.estado %></td>
+        <td><%= videoconferencium.tipo %></td>
+        <td><%= videoconferencium.nro_causa %></td>
+        <td><%= videoconferencium.motivo %></td>
+        <td><%= videoconferencium.solicitante %></td>
+        <td><%= link_to 'Show', videoconferencium %></td>
+        <td><%= link_to 'Edit', edit_videoconferencium_path(videoconferencium) %></td>
+        <td><%= link_to 'Destroy', videoconferencium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Videoconferencium', new_videoconferencium_path %>

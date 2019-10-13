@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estado: 
+  fecha: 2019-10-13
+  hora: 2019-10-13 20:45:52
+  descripcion: MyString
+  videoconferencia: 
+
+two:
+  estado: 
+  fecha: 2019-10-13
+  hora: 2019-10-13 20:45:52
+  descripcion: MyString
+  videoconferencia: 

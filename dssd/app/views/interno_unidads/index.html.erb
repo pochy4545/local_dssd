@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Interno Unidads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Apellido</th>
+      <th>Nombre</th>
+      <th>Unidad</th>
+      <th>Email representante</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @interno_unidads.each do |interno_unidad| %>
+      <tr>
+        <td><%= interno_unidad.apellido %></td>
+        <td><%= interno_unidad.nombre %></td>
+        <td><%= interno_unidad.unidad %></td>
+        <td><%= interno_unidad.email_representante %></td>
+        <td><%= link_to 'Show', interno_unidad %></td>
+        <td><%= link_to 'Edit', edit_interno_unidad_path(interno_unidad) %></td>
+        <td><%= link_to 'Destroy', interno_unidad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Interno Unidad', new_interno_unidad_path %>

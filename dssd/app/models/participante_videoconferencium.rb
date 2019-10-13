@@ -1,0 +1,2 @@
+class ParticipanteVideoconferencium < ApplicationRecord
+end

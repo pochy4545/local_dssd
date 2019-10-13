@@ -1,0 +1,37 @@
+<%= form_with(model: participante_videoconferencium, local: true) do |form| %>
+  <% if participante_videoconferencium.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(participante_videoconferencium.errors.count, "error") %> prohibited this participante_videoconferencium from being saved:</h2>
+
+      <ul>
+      <% participante_videoconferencium.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tipo_participante %>
+    <%= form.text_field :tipo_participante %>
+  </div>
+
+  <div class="field">
+    <%= form.label :apellido %>
+    <%= form.text_field :apellido %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nombres %>
+    <%= form.text_field :nombres %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

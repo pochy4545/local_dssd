@@ -1,0 +1,57 @@
+<%= form_with(model: videoconferencium, local: true) do |form| %>
+  <% if videoconferencium.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(videoconferencium.errors.count, "error") %> prohibited this videoconferencium from being saved:</h2>
+
+      <ul>
+      <% videoconferencium.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :fecha %>
+    <%= form.date_select :fecha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hora %>
+    <%= form.time_select :hora %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unidad %>
+    <%= form.text_field :unidad %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estado %>
+    <%= form.text_field :estado %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nro_causa %>
+    <%= form.text_field :nro_causa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :motivo %>
+    <%= form.text_field :motivo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :solicitante %>
+    <%= form.text_field :solicitante %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

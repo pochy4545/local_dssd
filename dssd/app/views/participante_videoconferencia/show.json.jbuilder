@@ -1,0 +1,1 @@
+json.partial! "participante_videoconferencia/participante_videoconferencium", participante_videoconferencium: @participante_videoconferencium

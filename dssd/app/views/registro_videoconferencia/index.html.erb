@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Registro Videoconferencia</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Estado</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Descripcion</th>
+      <th>Videoconferencia</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @registro_videoconferencia.each do |registro_videoconferencium| %>
+      <tr>
+        <td><%= registro_videoconferencium.estado %></td>
+        <td><%= registro_videoconferencium.fecha %></td>
+        <td><%= registro_videoconferencium.hora %></td>
+        <td><%= registro_videoconferencium.descripcion %></td>
+        <td><%= registro_videoconferencium.videoconferencia %></td>
+        <td><%= link_to 'Show', registro_videoconferencium %></td>
+        <td><%= link_to 'Edit', edit_registro_videoconferencium_path(registro_videoconferencium) %></td>
+        <td><%= link_to 'Destroy', registro_videoconferencium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Registro Videoconferencium', new_registro_videoconferencium_path %>

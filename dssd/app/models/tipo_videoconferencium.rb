@@ -1,0 +1,2 @@
+class TipoVideoconferencium < ApplicationRecord
+end

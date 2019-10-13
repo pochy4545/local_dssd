@@ -1,0 +1,2 @@
+class TipoParticipante < ApplicationRecord
+end

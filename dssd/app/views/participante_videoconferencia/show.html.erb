@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tipo participante:</strong>
+  <%= @participante_videoconferencium.tipo_participante %>
+</p>
+
+<p>
+  <strong>Apellido:</strong>
+  <%= @participante_videoconferencium.apellido %>
+</p>
+
+<p>
+  <strong>Nombres:</strong>
+  <%= @participante_videoconferencium.nombres %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @participante_videoconferencium.email %>
+</p>
+
+<%= link_to 'Edit', edit_participante_videoconferencium_path(@participante_videoconferencium) %> |
+<%= link_to 'Back', participante_videoconferencia_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Apellido:</strong>
+  <%= @interno_unidad.apellido %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @interno_unidad.nombre %>
+</p>
+
+<p>
+  <strong>Unidad:</strong>
+  <%= @interno_unidad.unidad %>
+</p>
+
+<p>
+  <strong>Email representante:</strong>
+  <%= @interno_unidad.email_representante %>
+</p>
+
+<%= link_to 'Edit', edit_interno_unidad_path(@interno_unidad) %> |
+<%= link_to 'Back', interno_unidads_path %>

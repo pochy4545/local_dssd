@@ -1,0 +1,2 @@
+class InternoUnidad < ApplicationRecord
+end

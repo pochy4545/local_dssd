@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @registro_videoconferencium.estado %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @registro_videoconferencium.fecha %>
+</p>
+
+<p>
+  <strong>Hora:</strong>
+  <%= @registro_videoconferencium.hora %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @registro_videoconferencium.descripcion %>
+</p>
+
+<p>
+  <strong>Videoconferencia:</strong>
+  <%= @registro_videoconferencium.videoconferencia %>
+</p>
+
+<%= link_to 'Edit', edit_registro_videoconferencium_path(@registro_videoconferencium) %> |
+<%= link_to 'Back', registro_videoconferencia_path %>
