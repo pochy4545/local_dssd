@@ -1,11 +1,12 @@
-<h1> "Uso interno:"</h1>
-<tr>
-<td><%= link_to 'Videoconferencia', videoconferencia_path %></td>
-<td><%= link_to 'Unidades', unidades_path %></td>
-<td><%= link_to 'Tipo_videoconferencia', tipo_videoconferencia_path %></td>
-<td><%= link_to 'Tipo_participantes', tipo_participantes_path %></td>
-<td><%= link_to 'Registro_videoconferencia', registro_videoconferencia_path %></td>
-<td><%= link_to 'Participante_videoconferencia', participante_videoconferencia_path %></td>
-<td><%= link_to 'Interno_unidades', interno_unidads_path %></td>
-<td><%= link_to 'Estado_videoconferencia', estado_videoconferencia_path %></td>
-</tr>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+  <%= link_to 'Vid', videoconferencia_path ,class: 'navbar-brand'%>
+  <%= link_to 'Unidades', unidades_path ,class: 'navbar-brand' %>
+  <%= link_to 'Tipo_(vid)', tipo_videoconferencia_path ,class: 'navbar-brand' %>
+  <%= link_to 'Tipo_participantes', tipo_participantes_path ,class: 'navbar-brand'%>
+  <%= link_to 'Registro(vid)', registro_videoconferencia_path ,class: 'navbar-brand'%>
+  <%= link_to 'Participantes(vid)', participante_videoconferencia_path ,class: 'navbar-brand'%>
+  <%= link_to 'Interno(unidades)', interno_unidads_path ,class: 'navbar-brand' %>
+  <%= link_to 'Estado(vid)', estado_videoconferencia_path ,class: 'navbar-brand'%>
+  </div>
+  </header>
