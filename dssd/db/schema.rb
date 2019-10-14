@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "email", limit: 100, null: false
   end
 
-  create_table "videoconferencias", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "videoconferencia", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT", force: :cascade do |t|
     t.date "fecha", null: false
     t.time "hora", null: false
     t.bigint "unidad", null: false
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "interno_unidad", "unidades", column: "unidad", name: "interno_unidad_FK"
   add_foreign_key "participante_videoconferencia", "tipo_participante", column: "tipo_participante", name: "participante_videoconferencia_FK"
   add_foreign_key "registro_videoconferencia", "estado_videoconferencia", column: "estado", name: "registro_videoconferencia_FK"
-  add_foreign_key "registro_videoconferencia", "videoconferencias", column: "videoconferencia", name: "registro_videoconferencia_FK_1"
-  add_foreign_key "videoconferencias", "estado_videoconferencia", column: "estado", name: "videoconferencias_FK_2"
-  add_foreign_key "videoconferencias", "participante_videoconferencia", column: "solicitante", name: "videoconferencias_FK_3"
-  add_foreign_key "videoconferencias", "tipo_videoconferencia", column: "tipo", name: "videoconferencias_FK"
-  add_foreign_key "videoconferencias", "unidades", column: "unidad", name: "videoconferencias_FK_1"
+  add_foreign_key "registro_videoconferencia", "videoconferencia", column: "videoconferencia", name: "registro_videoconferencia_FK_1"
+  add_foreign_key "videoconferencia", "estado_videoconferencia", column: "estado", name: "videoconferencias_FK_2"
+  add_foreign_key "videoconferencia", "participante_videoconferencia", column: "solicitante", name: "videoconferencias_FK_3"
+  add_foreign_key "videoconferencia", "tipo_videoconferencia", column: "tipo", name: "videoconferencias_FK"
+  add_foreign_key "videoconferencia", "unidades", column: "unidad", name: "videoconferencias_FK_1"
 end
