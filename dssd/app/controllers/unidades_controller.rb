@@ -5,6 +5,7 @@ class UnidadesController < ApplicationController
   # GET /unidades.json
   def index
     @unidades = Unidade.all
+    render json: @unidades
   end
 
   # GET /unidades/1

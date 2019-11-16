@@ -5,6 +5,7 @@ class TipoParticipantesController < ApplicationController
   # GET /tipo_participantes.json
   def index
     @tipo_participantes = TipoParticipante.all
+    render json: @tipo_participantes
   end
 
   # GET /tipo_participantes/1

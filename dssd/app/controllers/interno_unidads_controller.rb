@@ -5,6 +5,7 @@ class InternoUnidadsController < ApplicationController
   # GET /interno_unidads.json
   def index
     @interno_unidads = InternoUnidad.all
+    render json: @interno_unidads
   end
 
   # GET /interno_unidads/1

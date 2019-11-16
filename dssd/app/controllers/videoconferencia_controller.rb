@@ -5,6 +5,7 @@ class VideoconferenciaController < ApplicationController
   # GET /videoconferencia.json
   def index
     @videoconferencias = Videoconferencium.all
+    render json: @videoconferencias
   end
 
   # GET /videoconferencia/1

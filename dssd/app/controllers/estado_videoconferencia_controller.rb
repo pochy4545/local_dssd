@@ -5,6 +5,7 @@ class EstadoVideoconferenciaController < ApplicationController
   # GET /estado_videoconferencia.json
   def index
     @estado_videoconferencia = EstadoVideoconferencium.all
+    render json: @estado_videoconferencia
   end
 
   # GET /estado_videoconferencia/1

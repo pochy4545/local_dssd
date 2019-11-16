@@ -5,6 +5,7 @@ class RegistroVideoconferenciaController < ApplicationController
   # GET /registro_videoconferencia.json
   def index
     @registro_videoconferencia = RegistroVideoconferencium.all
+    render json: @registro_videoconferencia
   end
 
   # GET /registro_videoconferencia/1
