@@ -33,10 +33,10 @@ export class DataService {
     return this.http.post("http://localhost:3000/fechas",{
         dni: form.dni,
         hash: "asassbaiusfbaisfbauibfuaibfiu",
-        idRol: form.rol,
-        fecha: form.fecha,
+        idRol: form.tipoParticipante,
+        fecha: "12/12/2019",
         hora: form.hora,
-        id_unidad: form.id_unidad
+        id_unidad: form.unidad
     })
 
   }
