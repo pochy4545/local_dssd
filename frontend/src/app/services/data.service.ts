@@ -28,4 +28,16 @@ export class DataService {
   getTipoVideconferencia(): Observable<any> {
     return this.http.get('http://localhost:3000/tipo_videoconferencia');
   }
+  getHorarios(form): Observable<any> {
+    console.log(form)
+    return this.http.post("http://localhost:3000/fechas",{
+        dni: form.dni,
+        hash: "asassbaiusfbaisfbauibfuaibfiu",
+        idRol: form.rol,
+        fecha: form.fecha,
+        hora: form.hora,
+        id_unidad: form.id_unidad
+    })
+
+  }
 }

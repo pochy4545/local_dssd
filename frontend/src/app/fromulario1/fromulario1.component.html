@@ -56,15 +56,7 @@
                         <div *ngIf="f.unidad.errors.required">Por favor, Selecciona la Unidad</div>
                     </div>
                 </div>
-                <div class="form-group">
-                        <label for="tipoVideoconferencia"> Tipo de videoconferencia</label>
-                        <select class="form-control" formControlName="tipoVideoconferencia" [ngClass]="{ 'is-invalid': submitted && f.tipoVideoconferencia.errors }">
-                              <option *ngFor="let obj of tipoVideoc" [ngValue]="obj.id">{{ obj.tipo }}</option>		    
-                        </select>
-                        <div *ngIf="submitted && f.unidad.errors" class="invalid-feedback">
-                  <div *ngIf="f.unidad.errors.required">Por favor, Selecciona el tipo de videoconferencia</div>
-              </div>
-               </div>
+                
                <div class="form-group">
                     <label>Fecha para la videoconferencia</label>
                     <input type="date" formControlName="fecha" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }" />
@@ -74,7 +66,7 @@
              </div>
              <div class="form-group">
                     <label>Hora para la videoconferencia</label>
-                    <input type="date" formControlName="hora" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.hora.errors }" />
+                    <input type="time" formControlName="hora" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.hora.errors }" />
                     <div *ngIf="submitted && f.hora.errors" class="invalid-feedback">
                         <div *ngIf="f.hora.errors.required">Por favor, ingresa una Hora para la videoconferencia:</div>
                     </div>
@@ -87,7 +79,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <button [disabled]="loading" class="btn btn-primary">Aceptar</button>
+                    <button [disabled]="loading" class="btn btn-primary" (click)='cargarHorarios()'>Aceptar</button>
                 </div>
      
             </form>

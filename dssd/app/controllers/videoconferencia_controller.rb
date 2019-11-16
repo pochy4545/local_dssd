@@ -61,7 +61,14 @@ class VideoconferenciaController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def fechas
+    @parametros = params         
+    @test= HTTParty.post( "https://dssdcloud1.herokuapp.com/disponibilidad", 
+   :body => {:dni => '1212312',:hash => "asdsadsd",  :idRol => 54,  :fecha => '12/12/2019',:hora => '13:00', :id_unidad => 1}.to_json, 
+   :headers => {'Content-Type' => 'application/json'})
+   render json: @parametros
+ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_videoconferencium
@@ -72,4 +79,6 @@ class VideoconferenciaController < ApplicationController
     def videoconferencium_params
       params.require(:videoconferencium).permit(:fecha, :hora, :unidad, :estado, :tipo, :nro_causa, :motivo, :solicitante)
     end
+
+    
 end

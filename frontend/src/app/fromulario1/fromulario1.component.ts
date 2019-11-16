@@ -16,6 +16,7 @@ export class Fromulario1Component implements OnInit {
   tipoVideoc: any;
   tipoParti: any;
   par: string;
+  horarios: unknown[];
   constructor(private fs: DataService,private formBuilder: FormBuilder, private route: ActivatedRoute) { }
 
    ngOnInit() {
@@ -51,10 +52,10 @@ export class Fromulario1Component implements OnInit {
     this.fs.getUnidades().subscribe(
       result => {         
             this.unidads = Array.from(result);;
-            console.log(this.unidads);
+          //  console.log(this.unidads);
       },
       error => {
-          console.log(<any>error);
+         //console.log(<any>error);
       }
   );
   }
@@ -63,11 +64,11 @@ export class Fromulario1Component implements OnInit {
     this.fs.getTipoVideconferencia().subscribe(
       result => {           
               this.tipoVideoc = Array.from(result);
-              console.log(result);
+           //   console.log(result);
           
       },
       error => {
-          console.log(<any>error);
+      //    console.log(<any>error);
       }
   );
   }
@@ -76,10 +77,10 @@ export class Fromulario1Component implements OnInit {
     this.fs.getTipoParticipantes().subscribe(
       result => {           
               this.tipoParti = Array.from(result);
-              console.log(result);
+             // console.log(result);
       },
       error => {
-          console.log(<any>error);
+        //  console.log(<any>error);
       }
   );
   }
@@ -87,8 +88,20 @@ export class Fromulario1Component implements OnInit {
   idBonita() {
     this.route.queryParamMap.subscribe(params => {
     this.par = params.get("id")
-    console.log(params)
+    //console.log(params)
    })
+   }
+
+   cargarHorarios() {
+    this.fs.getHorarios(this.contacto.value).subscribe(
+      result => {           
+              this.horarios = Array.from(result);
+              console.log(result);
+      },
+      error => {
+          console.log(<any>error);
+      }
+  );
    }
 
 }

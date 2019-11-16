@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'routes', to: 'routes#index'
+  post 'fechas', to: 'videoconferencia#fechas'
   resources :videoconferencia
   resources :unidades
   resources :tipo_videoconferencia
