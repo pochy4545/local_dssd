@@ -70,6 +70,63 @@ class VideoconferenciaController < ApplicationController
    :headers => {'Content-Type' => 'application/json'})
    render json: @test
  end
+
+ def autenticar
+  #aharrar usuario de la sesion de bonita
+  @result = HTTParty.get( "http://localhost:8080/bonita/API/system/session/unuserid")
+  @token={token:"808349bd-4621-4d1b-827c-4b23f0309d65"}
+  puts("/////////////////////////////////")
+  puts(@result.headers)
+  render  json: @token
+
+ end
+
+ def confirmarVideoconferencia
+  puts("////////// datos para guardar")
+  @tipo
+  if(params[:tipoParticipante] == 3)
+    @tipoVideoconferencia = 1
+  else 
+    @tipoVideoconferencia = 2
+  end
+  @data = params[:data]
+  @participantes = params[:dataP]
+  puts("#participantes")
+  puts(@participantes)
+  @videoconferencium = Videoconferencium.new()
+  @videoconferencium.fecha = @data['fecha']
+  @videoconferencium.hora = @data['hora']
+  @videoconferencium.unidad = @data['unidad']
+  @videoconferencium.estado = 9
+  @videoconferencium.tipo = @tipoVideoconferencia
+  @videoconferencium.nro_causa = @data['numeroCausa']
+  @videoconferencium.motivo = @data['motivo']
+  @videoconferencium.solicitante = 2
+  @id=""
+  if @videoconferencium.save
+      @id = @videoconferencium.id
+      puts("videoconferencia guardada")
+  else
+     puts("error al guardar videoconferencia")
+  end
+
+  if (@id != "")
+
+  else
+    puts("error al obtener el id de la videoconferencia")
+  end
+
+  render json: params
+ end
+
+ def avanzarTask
+  @id = params[:idTask]
+  @token = params[:token]
+  
+  @result = HTTParty.post("http://localhost:8080/API/bpm/userTask/"+@id+"/execution",
+  :headers => { 'X-Bonita-API-Token'=> @token})
+  render json: @result
+ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_videoconferencium

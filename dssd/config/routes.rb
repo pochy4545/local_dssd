@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   get 'routes', to: 'routes#index'
   match 'fechas' => "videoconferencia#fechas", :via => :post
+  match 'fechas/avanzarTask' => "videoconferencia#avanzarTask", :via => :post
+  match 'fechas/confirmarVideoconferencia' => "videoconferencia#confirmarVideoconferencia", :via => :post
+  get 'fechas/autenticar', to: "videoconferencia#autenticar"
   resources :videoconferencia
   resources :unidades
   resources :tipo_videoconferencia

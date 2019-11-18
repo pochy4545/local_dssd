@@ -8,43 +8,29 @@
         <div class="col-md-12 mt-5">
 
         <h1>{{ titulo }} </h1>
-    
-        <form [formGroup]="contacto" (ngSubmit)="onSubmit()">
+        
+        <form *ngIf= '!this.horarios'   [formGroup]="contacto" >
                 <div class="form-group">
-                        <label for="tipoParticipante"> Tipo de Participante</label>
-                        <select class="form-control" formControlName="tipoParticipante" [ngClass]="{ 'is-invalid': submitted && f.tipoParticipante.errors }">
-                              <option *ngFor="let obj of tipoParti" [ngValue]="obj.id">{{ obj.tipo }}</option>		    
+                        <label for="tipoParticipante"> Tipo del Solicitante</label>
+                        <select  class="form-control" formControlName="tipoParticipante" [ngClass]="{ 'is-invalid': submitted && f.tipoParticipante.errors }">
+                              <option  *ngFor="let obj of tipoParti" [ngValue]="obj.id">{{ obj.tipo }}</option>		    
                         </select>
                         <div *ngIf="submitted && f.tipoParticipante.errors" class="invalid-feedback">
-                  <div *ngIf="f.tipoParticipante.errors.required">Por favor, Selecciona el tipo de participante</div>
+                  <div *ngIf="f.tipoParticipante.errors.required">Por favor ingrese, Selecciona el tipo de solicitante</div>
               </div>
                </div>
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                    <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                        <div *ngIf="f.nombre.errors.required">Por favor, ingresa tu Nombre</div>
-                    </div>
-                </div> 
-                <div class="form-group">
-                    <label>Apellido</label>
-                    <input type="text" formControlName="apellido" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.apellido.errors }" />
-                    <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
-                        <div *ngIf="f.apellido.errors.required">Por favor, ingresa tu Apellido</div>
-                    </div>
+               <div class="form-group">
+                <label>Dni</label>
+                <input type="number" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dni.errors }" />
+                <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
+                    <div *ngIf="f.dni.errors.required">Por favor ingre el dni:</div>
                 </div>
+            </div>    
                 <div class="form-group">
-                    <label>Dni</label>
-                    <input type="text" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dni.errors }" />
-                    <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
-                        <div *ngIf="f.dni.errors.required">Por favor, ingresa tu Dni:</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                        <label>Numero de Cause</label>
+                        <label>Numero de Causa</label>
                         <input type="number" formControlName="numeroCausa" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.numeroCausa.errors }" />
                         <div *ngIf="submitted && f.numeroCausa.errors" class="invalid-feedback">
-                            <div *ngIf="f.numeroCausa.errors.required">Por favor, el Numero de Causa:</div>
+                            <div *ngIf="f.numeroCausa.errors.required">Por favor ingrese, el Numero de Causa:</div>
                         </div>
                     </div>                            
                 <div class="form-group">
@@ -61,7 +47,7 @@
                     <label>Fecha para la videoconferencia</label>
                     <input type="date" formControlName="fecha" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }" />
                     <div *ngIf="submitted && f.fecha.errors" class="invalid-feedback">
-                        <div *ngIf="f.fecha.errors.required">Por favor, ingresa una fecha para la videoconferencia:</div>
+                        <div *ngIf="f.fecha.errors.required">Por favor, ingrese una fecha para la videoconferencia:</div>
                     </div>
              </div>
              <div class="form-group">
@@ -78,8 +64,62 @@
                       <div *ngIf="f.mensaje.errors.required">Por favor, ingresa el motivo:</div>
                   </div>
                 </div>
+                <h2>Participantes</h2>
+                <div class="form-group">
+                        <label for="interno">Interno</label>
+                        <select class="form-control" formControlName="interno" [ngClass]="{ 'is-invalid': submitted && f.interno.errors }">
+                            <option *ngFor="let obj of internos" [ngValue]="obj.id">{{ obj.apellido }}</option>		    
+                        </select>
+                        <div *ngIf="submitted && f.interno.errors" class="invalid-feedback">
+                <div *ngIf="f.interno.errors.required">Por favor  Selecciona el participante</div>
+            </div>
+            </div>
+            <div class="form-group">
+                    <label for="abogado">Abogado</label>
+                    <select class="form-control" formControlName="abogado" [ngClass]="{ 'is-invalid': submitted && f.abogado.errors }">
+                        <option *ngFor="let obj of abogados" [ngValue]="obj.id">{{ obj.apellido }}</option>		    
+                    </select>
+                    <div *ngIf="submitted && f.abogado.errors" class="invalid-feedback">
+            <div *ngIf="f.abogado.errors.required">Por favor  Selecciona el participante</div>
+        </div>
+        </div>
+        <div class="form-group">
+                <label for="procurador">Procurador</label>
+                <select class="form-control" formControlName="procurador" [ngClass]="{ 'is-invalid': submitted && f.procurador.errors }">
+                    <option *ngFor="let obj of procuradores" [ngValue]="obj.id">{{ obj.apellido }}</option>		    
+                </select>
+                <div *ngIf="submitted && f.procurador.errors" class="invalid-feedback">
+        <div *ngIf="f.procurador.errors.required">Por favor  Selecciona el participante</div>
+    </div>
+    </div>
+            <div class="form-group">        
+                    <label for="juez">Juez</label>
+                    <select class="form-control" formControlName="juez" [ngClass]="{ 'is-invalid': submitted && f.juez.errors }">
+                        <option *ngFor="let obj of jueces"  [ngValue]="obj.id" [selected]= "jueces.first">{{ obj.apellido }}</option>		    
+                    </select>
+                    <div *ngIf="submitted && f.juez.errors" class="invalid-feedback">
+            <div *ngIf="f.juez.errors.required">Por favor  Selecciona el participante</div>
+        </div>
+        </div>
                 <div class="form-group">
                     <button [disabled]="loading" class="btn btn-primary" (click)='cargarHorarios()'>Aceptar</button>
+                </div>
+     
+            </form>
+
+            <form *ngIf= 'this.horarios' [formGroup]="horariosCustom" >
+               <div *ngIf= 'this.horarios.data'>
+                    <select formControlName="custom">
+                        <option *ngFor='let h of this.horarios.data' [ngValue]="h" >{{h.attributes.address}} - {{h.attributes.fecha}} - {{h.attributes.hora}}</option>		    
+                  </select>                  
+               </div>
+               <div *ngIf= '!this.horarios.data'>
+                <p>Ese lugar esta disponible en la fecha {{this.horarios.date}} y hora {{this.horarios.time}}</p>               
+           </div>
+           <br>
+
+                <div class="form-group">
+                    <button  class="btn btn-primary" (click)='confirmarVideoconferencia()'>Aceptar</button>
                 </div>
      
             </form>

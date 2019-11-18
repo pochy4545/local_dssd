@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_11_17_215234) do
 
   create_table "estado_videoconferencia", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estado", limit: 100, null: false
   end
 
-  create_table "interno_unidad", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "interno_unidads", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT", force: :cascade do |t|
     t.string "apellido", limit: 100, null: false
     t.string "nombre", limit: 100, null: false
     t.bigint "unidad", null: false
@@ -42,7 +42,16 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["videoconferencia"], name: "registro_videoconferencia_FK_1"
   end
 
-  create_table "tipo_participante", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "relations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "videoconferencia_id"
+    t.bigint "participante_videoconferencia_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participante_videoconferencia_id"], name: "index_relations_on_participante_videoconferencia_id"
+    t.index ["videoconferencia_id"], name: "index_relations_on_videoconferencia_id"
+  end
+
+  create_table "tipo_participantes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT", force: :cascade do |t|
     t.string "tipo", limit: 100, null: false
   end
 
@@ -50,7 +59,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "tipo", limit: 100, null: false
   end
 
-  create_table "unidades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "unidades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT", force: :cascade do |t|
     t.string "nombre", limit: 100, null: false
     t.bigint "numeroUnidad", null: false
     t.string "coordenadas", limit: 100, null: false
@@ -72,10 +81,12 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["unidad"], name: "videoconferencias_FK_1"
   end
 
-  add_foreign_key "interno_unidad", "unidades", column: "unidad", name: "interno_unidad_FK"
-  add_foreign_key "participante_videoconferencia", "tipo_participante", column: "tipo_participante", name: "participante_videoconferencia_FK"
+  add_foreign_key "interno_unidads", "unidades", column: "unidad", name: "interno_unidad_FK"
+  add_foreign_key "participante_videoconferencia", "tipo_participantes", column: "tipo_participante", name: "participante_videoconferencia_FK"
   add_foreign_key "registro_videoconferencia", "estado_videoconferencia", column: "estado", name: "registro_videoconferencia_FK"
   add_foreign_key "registro_videoconferencia", "videoconferencia", column: "videoconferencia", name: "registro_videoconferencia_FK_1"
+  add_foreign_key "relations", "participante_videoconferencia", column: "participante_videoconferencia_id"
+  add_foreign_key "relations", "videoconferencia", column: "videoconferencia_id"
   add_foreign_key "videoconferencia", "estado_videoconferencia", column: "estado", name: "videoconferencias_FK_2"
   add_foreign_key "videoconferencia", "participante_videoconferencia", column: "solicitante", name: "videoconferencias_FK_3"
   add_foreign_key "videoconferencia", "tipo_videoconferencia", column: "tipo", name: "videoconferencias_FK"

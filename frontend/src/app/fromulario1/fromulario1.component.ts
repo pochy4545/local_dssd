@@ -16,26 +16,42 @@ export class Fromulario1Component implements OnInit {
   tipoVideoc: any;
   tipoParti: any;
   par: string;
-  horarios: unknown[];
+  horarios: unknown[] = null;
+  internos;
+  abogados;
+  procuradores;
+  jueces; 
+
+  horariosCustom:any;
+  token: Object;
   constructor(private fs: DataService,private formBuilder: FormBuilder, private route: ActivatedRoute) { }
 
    ngOnInit() {
        this.idBonita();
+       this.autorizacion()
        this.unidades();
        this.tipoVideoconferencia();
        this.tipoParticipante();
        this.contacto = this.formBuilder.group({
-           nombre: ['', Validators.required],   
-           apellido: ['', Validators.required],
            dni: ['', Validators.required],         
            unidad: ['', Validators.required],
-           tipoVideoconferencia: ['', Validators.required],
            tipoParticipante: ['', Validators.required],
            fecha: ['', Validators.required],
            hora: ['', Validators.required],
            numeroCausa: ['', Validators.required],
+           interno: ['', Validators.required],
+           abogado: ['', Validators.required],
+           procurador: ['', Validators.required],
+           juez: ['', Validators.required],
            mensaje: ['', [Validators.required, Validators.minLength(6)]]
        });
+
+
+       this.horariosCustom = this.formBuilder.group(
+         {custom:[Validators.required]}
+       )
+       this.getParticipanteVideoconferencia()
+
    }
 
    get f() { return this.contacto.controls; }
@@ -59,7 +75,8 @@ export class Fromulario1Component implements OnInit {
       }
   );
   }
-
+  
+  
   tipoVideoconferencia() {
     this.fs.getTipoVideconferencia().subscribe(
       result => {           
@@ -88,20 +105,67 @@ export class Fromulario1Component implements OnInit {
   idBonita() {
     this.route.queryParamMap.subscribe(params => {
     this.par = params.get("id")
-    //console.log(params)
+    console.log("######## id bonita:")
+    console.log(params)
    })
    }
 
    cargarHorarios() {
     this.fs.getHorarios(this.contacto.value).subscribe(
       result => {           
-              this.horarios = Array.from(result);
-              console.log(result);
+              this.horarios = result;
+              console.log("#### carga de horarios")
+              console.log(this.horarios)
+      },
+      error => {
+          console.log(<any>error);
+      }
+  );
+
+   }
+   confirmarVideoconferencia() {
+     //registrar en cloud y backend
+     this.fs.confirmarVideoconferencia(this.contacto.value, this.horariosCustom.value).subscribe(
+       x=> {
+         console.log(x)
+       }
+     )
+     //verification 
+
+     //setear y avanzar proceso  en bonita
+
+     //this.fs.avanzar(this.par, this.token).subscribe(result => {
+     //  console.log(result)
+     //})
+   }
+
+   getParticipanteVideoconferencia() {
+    
+    this.fs.getParticipanteVideoconferencia().subscribe(
+      result => {           
+              console.log(result)
+              this.internos = result.filter(  x => { return x.tipo_participante == 1})
+              this.abogados = result.filter(  x => { return x.tipo_participante == 2})
+              this.procuradores =result.filter(  x => { return x.tipo_participante == 4})
+              this.jueces = result.filter(  x => { return x.tipo_participante == 3})
+              
       },
       error => {
           console.log(<any>error);
       }
   );
    }
+   autorizacion(){
+     this.fs.autenticar().subscribe(
+       result => {
+         
+         this.token= result.token
+         //hardc
+         this.token = "8acc1106-d91e-4010-9cb1-1127c47be1ed" 
+       }
+     )
+    return
+   }
+   
 
 }
