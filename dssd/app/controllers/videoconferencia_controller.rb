@@ -111,12 +111,21 @@ class VideoconferenciaController < ApplicationController
   end
 
   if (@id != "")
-
+    @participantes.each{|participante| 
+        @r= Relation.new()
+        @r.videoconferencia_id = @id
+        @r.participante_videoconferencia_id = participante
+        if @r.save
+           puts("participante guardado")
+        else
+           puts("eeror al guardar participantes para la videoconferencia :"+ @id)
+        end
+    }
   else
     puts("error al obtener el id de la videoconferencia")
   end
 
-  render json: params
+  render json: @id
  end
 
  def avanzarTask
@@ -127,6 +136,85 @@ class VideoconferenciaController < ApplicationController
   :headers => { 'X-Bonita-API-Token'=> @token})
   render json: @result
  end
+
+ def iniciarVideoconferencia
+  @videoconferencium = Videoconferencium.find(params[:idUnidad])
+  time_diff = (Time.current - @videoconferencium.hora.to_time)
+  estado = 9
+  if ((time_diff / 1.minute).round > 10) 
+       estado = 2
+  else 
+       estado = 1
+  end
+  @registro= RegistroVideoconferencium.new()
+  @registro.estado = estado
+  @videoconferencium.estado = estado
+  if @videoconferencium.save
+    puts("se cambio el estado correctamente")
+  else
+    puts("error al cambiar el estado")
+  end
+  @registro.fecha = DateTime.now.strftime("%d/%m/%Y")
+  @registro.hora = Time.now.strftime("%I:%M:%S")
+  @registro.descripcion = "videoconferencia iniciada"
+  @registro.videoconferencia = params[:idUnidad]
+  @registro.horaFin = Time.now.strftime("%I:%M:%S")
+  if @registro.save
+      puts("se cambio el estado de la videoconferencia correctamente")
+  else
+     puts("error al cambiar el estado de la videoconferencia")
+  end
+  render json: @registro
+ end
+ 
+ 
+ def cancelarVideoconferencia
+  @videoconferencium = Videoconferencium.find(params[:idUnidad])
+  @videoconferencium.estado = 4
+  if @videoconferencium.save
+    puts("se cambio el estado correctamente")
+  else
+    puts("error al cambiar el estado")
+  end
+  @registro= RegistroVideoconferencium.new()
+  @registro.estado = 4
+  @registro.fecha = DateTime.now.strftime("%d/%m/%Y")
+  @registro.hora = Time.now.strftime("%I:%M:%S")
+  @registro.descripcion = "videoconferencia cancelada"
+  @registro.videoconferencia = params[:idUnidad]
+  @registro.horaFin = Time.now.strftime("%I:%M:%S")
+  if @registro.save
+    puts("se cambio el estado de la videoconferencia correctamente")
+  else
+     puts("error al cambiar el estado de la videoconferencia")
+  end
+  render json: @registro
+ end
+
+ def finalizarVideoconferencia
+  @videoconferencium = Videoconferencium.find(params[:idUnidad])
+  @estado = params[:estado]
+  @videoconferencium.estado = @estado["estado"]
+  if @videoconferencium.save
+    puts("se cambio el estado correctamente")
+  else
+    puts("error al cambiar el estado")
+  end
+  @registro= RegistroVideoconferencium.new()
+  @registro.estado = @estado["estado"]
+  @registro.fecha = DateTime.now.strftime("%d/%m/%Y")
+  @registro.hora = Time.now.strftime("%I:%M:%S")
+  @registro.descripcion = "videoconferencia finalizada"
+  @registro.videoconferencia = params[:idUnidad]
+  @registro.horaFin = Time.now.strftime("%I:%M:%S")
+  if @registro.save
+    puts("se cambio el estado de la videoconferencia correctamente")
+  else
+     puts("error al cambiar el estado de la videoconferencia")
+  end
+  render json: @registro
+ end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_videoconferencium

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_17_215234) do
+ActiveRecord::Schema.define(version: 2019_11_20_000242) do
 
   create_table "estado_videoconferencia", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "estado", limit: 100, null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_11_17_215234) do
     t.time "hora", null: false
     t.string "descripcion", limit: 250, null: false
     t.bigint "videoconferencia", null: false
+    t.time "horaFin"
     t.index ["estado"], name: "registro_videoconferencia_FK"
     t.index ["videoconferencia"], name: "registro_videoconferencia_FK_1"
   end

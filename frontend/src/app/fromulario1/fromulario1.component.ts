@@ -128,6 +128,7 @@ export class Fromulario1Component implements OnInit {
      this.fs.confirmarVideoconferencia(this.contacto.value, this.horariosCustom.value).subscribe(
        x=> {
          console.log(x)
+         localStorage.setItem('idVideoconferencia', x);
        }
      )
      //verification 
