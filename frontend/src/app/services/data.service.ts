@@ -20,11 +20,11 @@ export class DataService {
        token: token
      })
     //http://localhost:8080/API/bpm/userTask/40030/execution
-  
+    
   }
  
 autenticar() {
-  return this.http.get('http://localhost:3000/fechas/autenticar')
+  return this.http.get<any>('http://localhost:3000/fechas/autenticar')
  }
   getUnidades(): Observable<any> {
     return this.http.get('http://localhost:3000/unidades');

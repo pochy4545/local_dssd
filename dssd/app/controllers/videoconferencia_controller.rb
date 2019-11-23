@@ -72,13 +72,16 @@ class VideoconferenciaController < ApplicationController
  end
 
  def autenticar
+  
   #aharrar usuario de la sesion de bonita
-  @result = HTTParty.get( "http://localhost:8080/bonita/API/system/session/unuserid")
-  @token={token:"808349bd-4621-4d1b-827c-4b23f0309d65"}
-  puts("/////////////////////////////////")
-  puts(@result.headers)
-  render  json: @token
-
+  #@result = HTTParty.get( "http://localhost:8080/bonita/API/system/session/unuserid")
+  @result = HTTParty.post( "http://localhost:8080/bonita/loginservice",
+    :body => {:username => "agustin", :password => "123", :redirect => false},
+    :headers => {'Content-Type' => 'application/x-www-form-urlencoded'})
+    puts("cokkiessssss")
+    puts(@result.headers["set-cookie"])
+    @token = { token: @result.headers["set-cookie"].gsub("X-Bonita-API-Token="," ").gsub(";"," ").split(" ")[4]}
+    render  json: @token
  end
 
  def confirmarVideoconferencia
@@ -131,9 +134,13 @@ class VideoconferenciaController < ApplicationController
  def avanzarTask
   @id = params[:idTask]
   @token = params[:token]
-  
+  puts("token ///////")
+  puts(@token)
+  puts("id")
+  puts(@id)
   @result = HTTParty.post("http://localhost:8080/API/bpm/userTask/"+@id+"/execution",
   :headers => { 'X-Bonita-API-Token'=> @token})
+  puts(@result)
   render json: @result
  end
 

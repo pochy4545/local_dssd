@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service'
 import { ActivatedRoute } from '@angular/router';
+import { puts } from 'util';
 
 @Component({
   selector: 'app-fromulario1',
@@ -28,7 +29,6 @@ export class Fromulario1Component implements OnInit {
 
    ngOnInit() {
        this.idBonita();
-       this.autorizacion()
        this.unidades();
        this.tipoVideoconferencia();
        this.tipoParticipante();
@@ -134,10 +134,8 @@ export class Fromulario1Component implements OnInit {
      //verification 
 
      //setear y avanzar proceso  en bonita
-
-     //this.fs.avanzar(this.par, this.token).subscribe(result => {
-     //  console.log(result)
-     //})
+     this.autorizacion()
+     
    }
 
    getParticipanteVideoconferencia() {
@@ -159,10 +157,12 @@ export class Fromulario1Component implements OnInit {
    autorizacion(){
      this.fs.autenticar().subscribe(
        result => {
-         
-         this.token= result.token
-         //hardc
-         this.token = "8acc1106-d91e-4010-9cb1-1127c47be1ed" 
+         localStorage.setItem("token", result.token)
+         console.log("token final")
+         console.log(localStorage.getItem("token"))
+         this.fs.avanzar(this.par, localStorage.getItem("token")).subscribe(result => {
+          console.log(result)
+        })
        }
      )
     return
