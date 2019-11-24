@@ -138,8 +138,9 @@ class VideoconferenciaController < ApplicationController
   puts(@token)
   puts("id")
   puts(@id)
-  @result = HTTParty.post("http://localhost:8080/API/bpm/userTask/"+@id+"/execution",
-  :headers => { 'X-Bonita-API-Token'=> @token})
+  puts("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution")
+  @result = HTTParty.get("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution",
+  :headers => { "X-Bonita-API-Token" => @token })
   puts(@result)
   render json: @result
  end
