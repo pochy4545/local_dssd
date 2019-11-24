@@ -20,17 +20,29 @@ export class Formulario2Component implements OnInit {
 
   }
   iniciarVideoconferencia(){
-    this.fs.iniciarVideoconferencia(localStorage.getItem('idVideoconferencia')).subscribe(
+    this.fs.getHoraYfechaDeVideoconferencia(localStorage.getItem('idVideoconferencia')).subscribe(
       result => {      
-            console.log("iniciar vdeoconferencia") 
-            this.iniciada =true    
-            console.log(result);
-      },
-      error => {
-          console.log(<any>error);
-      }
-
-    )}
+        let ok = false
+        console.log("hora y fecha de videoconferencia");
+        console.log(result)
+        if(new Date(result.fecha) >= new Date) {
+        this.fs.iniciarVideoconferencia(localStorage.getItem('idVideoconferencia')).subscribe(
+          result => {      
+                console.log("iniciar vdeoconferencia") 
+                this.iniciada =true    
+                console.log(result);
+          },
+          error => {
+              console.log(<any>error);
+          })
+        }
+    },
+    error => {
+        console.log(<any>error);
+      
+    })  
+  }
+    
   cancelarVideoconferencia(){
     this.fs.cancelarVideoconferencia(localStorage.getItem('idVideoconferencia')).subscribe(
       result => {       

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   match 'fechas/cancelarVideoconferencia' => "videoconferencia#cancelarVideoconferencia", :via => :post
   match 'fechas/finalizarVideoconferencia' => "videoconferencia#finalizarVideoconferencia", :via => :post
   match 'fechas/avanzarTask' => "videoconferencia#avanzarTask", :via => :post
+  match 'fechas/getHoraYfechaDeVideoconferencia' => "videoconferencia#getHoraYfechaDeVideoconferencia", :via => :post
   match 'fechas/confirmarVideoconferencia' => "videoconferencia#confirmarVideoconferencia", :via => :post
   get 'fechas/autenticar', to: "videoconferencia#autenticar"
   resources :videoconferencia

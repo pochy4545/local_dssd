@@ -2,7 +2,7 @@
 <div class="form-group" *ngIf= '!this.iniciada'>
         <button  class="btn btn-primary" (click)='iniciarVideoconferencia()'>Iniciar</button>
 </div>
-<div class="form-group">
+<div class="form-group" *ngIf= '!this.iniciada'>
         <button  class="btn btn-primary" (click)='cancelarVideoconferencia()'>Cancelar</button>
 </div>
 

@@ -22,7 +22,11 @@ class VideoconferenciaController < ApplicationController
   # GET /videoconferencia/1/edit
   def edit
   end
-
+  
+  def getHoraYfechaDeVideoconferencia
+    @videoconferencium = Videoconferencium.find(params[:id])
+    render json: @videoconferencium
+  end
   # POST /videoconferencia
   # POST /videoconferencia.json
   def create

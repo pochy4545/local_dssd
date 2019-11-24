@@ -30,6 +30,12 @@ autenticar() {
     return this.http.get('http://localhost:3000/unidades');
   }
 
+  getHoraYfechaDeVideoconferencia(idVideoconferencia): Observable<any> {
+    return this.http.post("http://localhost:3000/fechas/getHoraYfechaDeVideoconferencia",{
+      id: idVideoconferencia
+    })
+  }
+
   getEstadoDeVideoconferencia(): Observable<any> {
     return this.http.get('http://localhost:3000/estado_videoconferencia')
   }
@@ -45,12 +51,13 @@ autenticar() {
   }
 
   getHorarios(form): Observable<any> {
-    console.log(form)
+    let fecha = new Date(form.fecha)
+    fecha.setDate(fecha.getDate() + 1)
     return this.http.post("http://localhost:3000/fechas",{
         dni: form.dni,
         hash: "asassbaiusfbaisfbauibfuaibfiu",
         idRol: form.tipoParticipante,
-        fecha: "12/12/2019",
+        fecha: fecha.toLocaleDateString(),
         hora: form.hora,
         id_unidad: form.unidad
     })
