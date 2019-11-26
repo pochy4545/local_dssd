@@ -105,6 +105,7 @@ export class Fromulario1Component implements OnInit {
   idBonita() {
     this.route.queryParamMap.subscribe(params => {
     this.par = params.get("id")
+    localStorage.setItem("idBonita",this.par)
     console.log("######## id bonita:")
     console.log(params)
    })
@@ -157,10 +158,13 @@ export class Fromulario1Component implements OnInit {
    autorizacion(){
      this.fs.autenticar().subscribe(
        result => {
+
          localStorage.setItem("token", result.token)
+         localStorage.setItem("jsonId", result.jsonId)
          console.log("token final")
          console.log(localStorage.getItem("token"))
-         this.fs.avanzar(this.par, localStorage.getItem("token")).subscribe(result => {
+         console.log(localStorage.getItem("jsonId"))
+         this.fs.avanzar(this.par, localStorage.getItem("token"), localStorage.getItem("jsonId")).subscribe(result => {
           console.log(result)
         })
        }

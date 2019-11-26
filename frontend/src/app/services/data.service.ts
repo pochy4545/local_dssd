@@ -11,13 +11,14 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
  
-  avanzar(id,token) {
+  avanzar(id,token,jsonId) {
     console.log("#### avanzar")
     console.log(id)
     console.log(token)
      return this.http.post<any>('http://localhost:3000/fechas/avanzarTask',{
        idTask: id,
-       token: token
+       token: token,
+       jsonId: jsonId
      })
     //http://localhost:8080/API/bpm/userTask/40030/execution
     

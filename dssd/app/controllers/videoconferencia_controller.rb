@@ -1,3 +1,6 @@
+require 'uri'
+require 'net/http'
+
 class VideoconferenciaController < ApplicationController
   before_action :set_videoconferencium, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
@@ -84,8 +87,11 @@ class VideoconferenciaController < ApplicationController
     :headers => {'Content-Type' => 'application/x-www-form-urlencoded'})
     puts("cokkiessssss")
     puts(@result.headers["set-cookie"])
-    @token = { token: @result.headers["set-cookie"].gsub("X-Bonita-API-Token="," ").gsub(";"," ").split(" ")[4]}
-    render  json: @token
+    @jesonId = @result.headers["set-cookie"].gsub("JSESSIONID="," ").gsub(";"," ").split(" ")[1]
+    puts("json id")
+    puts(@jesonId)
+    @response = { token: @result.headers["set-cookie"].gsub("X-Bonita-API-Token="," ").gsub(";"," ").split(" ")[4] , jsonId: @jesonId}
+    render  json: @response
  end
 
  def confirmarVideoconferencia
@@ -138,15 +144,35 @@ class VideoconferenciaController < ApplicationController
  def avanzarTask
   @id = params[:idTask]
   @token = params[:token]
+  @jsonId = params[:jsonId]
   puts("token ///////")
   puts(@token)
   puts("id")
   puts(@id)
-  puts("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution")
-  @result = HTTParty.get("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution",
-  :headers => { "X-Bonita-API-Token" => @token })
-  puts(@result)
-  render json: @result
+  puts("json id")
+  puts(@jsonId)
+  #puts("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution")
+  #@result = HTTParty.get("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution",
+  #:headers => { "X-Bonita-API-Token" => @token},
+  #:cookies => { "X-Bonita-API-Token" => @token  ,"JSESSIONID" => @jsonId})
+  #puts(@result)
+  url = URI("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution")
+  http = Net::HTTP.new(url.host, url.port)
+  request = Net::HTTP::Post.new(url)
+  request["X-Bonita-API-Token"] = @token
+  request["Accept"] = '*/*'
+  request["Cache-Control"] = 'no-cache'
+  request["Host"] = 'localhost:8080'
+  request["Accept-Encoding"] = 'gzip, deflate'
+  request["Cookie"] = "X-Bonita-API-Token="+@token
+  request["Cookie"] =request["Cookie"] + "; JSESSIONID="+@jsonId
+  request["Content-Length"] = '0'
+  request["Connection"] = 'keep-alive'
+  request["cache-control"] = 'no-cache'
+  response = http.request(request)
+  puts("ok")
+  puts(response.to_hash)
+  render json: response
  end
 
  def iniciarVideoconferencia
