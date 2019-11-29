@@ -14,11 +14,19 @@ export class Formulario2Component implements OnInit {
   iniciada: boolean;
   constructor(private fs: DataService,private formBuilder: FormBuilder, private route: ActivatedRoute) { }
   ngOnInit() {
-    this.getEstadoFinalizarVideoconferencia()
+    this.idBonita()
     this.contacto = this.formBuilder.group({
       estado: ['', Validators.required]})
 
   }
+  idBonita() {
+    this.route.queryParamMap.subscribe(params => {
+    localStorage.setItem("idBonita2",params.get("id"))
+    console.log("######## id bonita:")
+    console.log(params)
+   })
+  }
+   
   iniciarVideoconferencia(){
     this.fs.getHoraYfechaDeVideoconferencia(localStorage.getItem('idVideoconferencia')).subscribe(
       result => {      
@@ -31,6 +39,7 @@ export class Formulario2Component implements OnInit {
                 console.log("iniciar vdeoconferencia") 
                 this.iniciada =true    
                 console.log(result);
+                this.autorizacion()
           },
           error => {
               console.log(<any>error);
@@ -47,7 +56,9 @@ export class Formulario2Component implements OnInit {
     this.fs.cancelarVideoconferencia(localStorage.getItem('idVideoconferencia')).subscribe(
       result => {       
              console.log("cancelar videoconferencia")    
-             console.log(result) 
+             console.log(result)
+             this.autorizacion()
+             localStorage.setItem("cancelado", "true") 
       },
       error => {
           console.log(<any>error);
@@ -55,29 +66,9 @@ export class Formulario2Component implements OnInit {
 
     )}
 
-    getEstadoFinalizarVideoconferencia() {
-      this.fs.getEstadoDeVideoconferencia().subscribe(
-        result => {        
-               console.log("get estado finalizar videoconferencia")   
-               console.log(result)
-               this.estados= result 
-        },
-        error => {
-            console.log(<any>error);
-        }
-  
-      )}
-
-    finalizarVideoconferencia() {
-      console.log(this.contacto.value)
-      this.fs.finalizarVideoconferencia(localStorage.getItem('idVideoconferencia'),this.contacto.value).subscribe(
-        result => {
-          console.log("finalizar videoconferencia")
-          console.log(result)
-        },
-        error =>  {
-          console.log(<any> error);
-        }
-      )
+    autorizacion(){
+          this.fs.avanzar(localStorage.getItem("idBonita2"), localStorage.getItem("token"), localStorage.getItem("jsonId")).subscribe(result => {
+           console.log(result)
+         })
     }
 }

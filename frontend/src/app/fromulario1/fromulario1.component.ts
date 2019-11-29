@@ -164,6 +164,11 @@ export class Fromulario1Component implements OnInit {
          console.log("token final")
          console.log(localStorage.getItem("token"))
          console.log(localStorage.getItem("jsonId"))
+         this.fs.getInfoDelUsuario(this.par, localStorage.getItem("token"), localStorage.getItem("jsonId")).subscribe(result => {
+          console.log("info del usuario ###################")
+          console.log(result.user_id)
+          localStorage.setItem("userId",result.user_id);
+        })
          this.fs.avanzar(this.par, localStorage.getItem("token"), localStorage.getItem("jsonId")).subscribe(result => {
           console.log(result)
         })

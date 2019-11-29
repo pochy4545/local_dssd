@@ -5,17 +5,3 @@
 <div class="form-group" *ngIf= '!this.iniciada'>
         <button  class="btn btn-primary" (click)='cancelarVideoconferencia()'>Cancelar</button>
 </div>
-
-
-<form *ngIf= 'this.iniciada'  [formGroup]="contacto" >
-<div class="form-group">
-        <label for="estado"> Estado de finalizacion</label>
-        <select  formControlName="estado">
-              <option  *ngFor="let obj of estados" [ngValue]="obj.id">{{ obj.estado }}</option>		    
-        </select>
-
-        <div  class="form-group">
-                <button  class="btn btn-primary" (click)='finalizarVideoconferencia()'>finalizar</button>
-        </div>
-</div>
-</form>

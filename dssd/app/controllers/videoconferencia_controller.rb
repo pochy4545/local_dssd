@@ -252,7 +252,25 @@ class VideoconferenciaController < ApplicationController
   end
   render json: @registro
  end
-
+ 
+ def getInfoDelUsuario
+    @id = params[:idTask]
+    @token = params[:token]
+    @jsonId = params[:jsonId]
+    url = URI("http://localhost:8080/bonita/API/system/session/unusedId")
+    http = Net::HTTP.new(url.host, url.port)
+    request = Net::HTTP::Get.new(url)
+    request["Accept"] = '*/*'
+    request["Cache-Control"] = 'no-cache'
+    request["Host"] = 'localhost:8080'
+    request["Accept-Encoding"] = 'gzip, deflate'
+    request["Cookie"] = "X-Bonita-API-Token="+@token
+    request["Cookie"] =request["Cookie"] + "; JSESSIONID="+@jsonId
+    request["Connection"] = 'keep-alive'
+    request["cache-control"] = 'no-cache'
+    response = http.request(request)
+    render json: response.read_body
+ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_videoconferencium

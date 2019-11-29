@@ -20,8 +20,17 @@ export class DataService {
        token: token,
        jsonId: jsonId
      })
-    //http://localhost:8080/API/bpm/userTask/40030/execution
-    
+  }
+
+  getInfoDelUsuario(id,token,jsonId) {
+    console.log("#### get info del usuario")
+    console.log(id)
+    console.log(token)
+     return this.http.post<any>('http://localhost:3000/fechas/getInfoDelUsuario',{
+       idTask: id,
+       token: token,
+       jsonId: jsonId
+     })
   }
  
 autenticar() {
