@@ -129,7 +129,7 @@ class VideoconferenciaController < ApplicationController
            puts("participante guardado")
            @userMail = ParticipanteVideoconferencium.find(participante).email
            if(@userMail != nil) 
-              UserMailer.with(user: @userMail).enviar.deliver_now
+              UserMailer.with(user: @userMail, videoconferencium: @videoconferencium).enviar.deliver_now
               puts("se envio correctamente el mail")
            end
         else
