@@ -94,7 +94,7 @@ export class Fromulario1Component implements OnInit {
     this.fs.getTipoParticipantes().subscribe(
       result => {           
               this.tipoParti = Array.from(result);
-             // console.log(result);
+              console.log(result);
       },
       error => {
         //  console.log(<any>error);
@@ -143,6 +143,7 @@ export class Fromulario1Component implements OnInit {
     
     this.fs.getParticipanteVideoconferencia().subscribe(
       result => {           
+        console.log("me intereza")
               console.log(result)
               this.internos = result.filter(  x => { return x.tipo_participante == 1})
               this.abogados = result.filter(  x => { return x.tipo_participante == 2})

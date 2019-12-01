@@ -115,7 +115,6 @@ autenticar() {
       motivo: formulario.mensaje}
 
   }
-  
   let participantes=[formulario.juez,formulario.procurador,formulario.interno,formulario.abogado]
   console.log(participantes)
   return this.http.post<any>("http://localhost:3000/fechas/confirmarVideoconferencia",{

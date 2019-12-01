@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   match 'fechas/getHoraYfechaDeVideoconferencia' => "videoconferencia#getHoraYfechaDeVideoconferencia", :via => :post
   match 'fechas/confirmarVideoconferencia' => "videoconferencia#confirmarVideoconferencia", :via => :post
   get 'fechas/autenticar', to: "videoconferencia#autenticar"
+  get 'fechas/enviarMail', to: "videoconferencia#enviarMail"
   match 'fechas/getInfoDelUsuario' => "videoconferencia#getInfoDelUsuario", :via => :post
   resources :videoconferencia
   resources :unidades

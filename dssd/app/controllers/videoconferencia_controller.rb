@@ -95,7 +95,6 @@ class VideoconferenciaController < ApplicationController
  end
 
  def confirmarVideoconferencia
-  puts("////////// datos para guardar")
   @tipo
   if(params[:tipoParticipante] == 3)
     @tipoVideoconferencia = 1
@@ -104,8 +103,6 @@ class VideoconferenciaController < ApplicationController
   end
   @data = params[:data]
   @participantes = params[:dataP]
-  puts("#participantes")
-  puts(@participantes)
   @videoconferencium = Videoconferencium.new()
   @videoconferencium.fecha = @data['fecha']
   @videoconferencium.hora = @data['hora']
@@ -130,6 +127,11 @@ class VideoconferenciaController < ApplicationController
         @r.participante_videoconferencia_id = participante
         if @r.save
            puts("participante guardado")
+           @userMail = ParticipanteVideoconferencium.find(participante).email
+           if(@userMail != nil) 
+              UserMailer.with(user: @userMail).enviar.deliver_now
+              puts("se envio correctamente el mail")
+           end
         else
            puts("eeror al guardar participantes para la videoconferencia :"+ @id)
         end
@@ -151,11 +153,6 @@ class VideoconferenciaController < ApplicationController
   puts(@id)
   puts("json id")
   puts(@jsonId)
-  #puts("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution")
-  #@result = HTTParty.get("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution",
-  #:headers => { "X-Bonita-API-Token" => @token},
-  #:cookies => { "X-Bonita-API-Token" => @token  ,"JSESSIONID" => @jsonId})
-  #puts(@result)
   url = URI("http://localhost:8080/bonita/API/bpm/userTask/"+@id+"/execution")
   http = Net::HTTP.new(url.host, url.port)
   request = Net::HTTP::Post.new(url)
@@ -271,6 +268,12 @@ class VideoconferenciaController < ApplicationController
     response = http.request(request)
     render json: response.read_body
  end
+
+ def enviarMail
+    UserMailer.with(user: "agustin.c.96@hotmail.com").enviar.deliver_now
+    render json: "ok"
+ end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_videoconferencium
