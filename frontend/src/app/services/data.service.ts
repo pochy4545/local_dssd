@@ -75,6 +75,7 @@ autenticar() {
   }
 
   iniciarVideoconferencia(id): Observable<any>{
+
     return this.http.post("http://localhost:3000/fechas/iniciarVideoconferencia",{
         idUnidad:id
     })
@@ -83,13 +84,15 @@ autenticar() {
 
   cancelarVideoconferencia(id): Observable<any>{
     return this.http.post("http://localhost:3000/fechas/cancelarVideoconferencia",{
-      idUnidad:id
+      idUnidad:id,
+      participantes: JSON.parse(localStorage.getItem("participantes"))
   })
   }
   finalizarVideoconferencia(id,estado): Observable<any> {
     return this.http.post('http://localhost:3000/fechas/finalizarVideoconferencia',{
       idUnidad:id,
-      estado: estado
+      estado: estado,
+      participantes: JSON.parse(localStorage.getItem("participantes"))
     });
   }
 
@@ -116,6 +119,7 @@ autenticar() {
 
   }
   let participantes=[formulario.juez,formulario.procurador,formulario.interno,formulario.abogado]
+  localStorage.setItem("participantes",JSON.stringify(participantes));
   console.log(participantes)
   return this.http.post<any>("http://localhost:3000/fechas/confirmarVideoconferencia",{
         data: obj,

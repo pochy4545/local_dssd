@@ -205,6 +205,9 @@ class VideoconferenciaController < ApplicationController
  
  def cancelarVideoconferencia
   @videoconferencium = Videoconferencium.find(params[:idUnidad])
+  @participantes = params[:participantes]
+  puts("participantes////////////////////////////////////")
+  puts @participantes
   @videoconferencium.estado = 4
   if @videoconferencium.save
     puts("se cambio el estado correctamente")
@@ -220,6 +223,13 @@ class VideoconferenciaController < ApplicationController
   @registro.horaFin = Time.now.strftime("%I:%M:%S")
   if @registro.save
     puts("se cambio el estado de la videoconferencia correctamente")
+    @participantes.each{|participante| 
+           @userMail = ParticipanteVideoconferencium.find(participante).email
+           if(@userMail != nil) 
+              UserMailer.with(user: @userMail, videoconferencium: @videoconferencium).cancelar.deliver_now
+              puts("se envio correctamente el mail")
+           end
+          }
   else
      puts("error al cambiar el estado de la videoconferencia")
   end
@@ -229,6 +239,7 @@ class VideoconferenciaController < ApplicationController
  def finalizarVideoconferencia
   @videoconferencium = Videoconferencium.find(params[:idUnidad])
   @estado = params[:estado]
+  @participantes = params[:participantes]
   @videoconferencium.estado = @estado["estado"]
   if @videoconferencium.save
     puts("se cambio el estado correctamente")
@@ -244,6 +255,15 @@ class VideoconferenciaController < ApplicationController
   @registro.horaFin = Time.now.strftime("%I:%M:%S")
   if @registro.save
     puts("se cambio el estado de la videoconferencia correctamente")
+    @participantes.each{|participante| 
+           @userMail = ParticipanteVideoconferencium.find(participante).email
+           if(@userMail != nil)
+              @varestado = EstadoVideoconferencium.find(@estado["estado"])
+              puts(@varestado.estado)
+              UserMailer.with(user: @userMail, videoconferencium: @videoconferencium, estado: @varestado.estado).finalizar.deliver_now
+              puts("se envio correctamente el mail")
+           end
+          }
   else
      puts("error al cambiar el estado de la videoconferencia")
   end

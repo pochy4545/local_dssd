@@ -28,6 +28,7 @@ export class Fromulario1Component implements OnInit {
   constructor(private fs: DataService,private formBuilder: FormBuilder, private route: ActivatedRoute) { }
 
    ngOnInit() {
+       localStorage.setItem("cancelado","false");
        this.idBonita();
        this.unidades();
        this.tipoVideoconferencia();

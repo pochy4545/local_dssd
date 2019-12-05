@@ -65,6 +65,7 @@ export class Formulario3Component implements OnInit {
     autorizacion(){
       this.fs.avanzar(localStorage.getItem("idBonita3"), localStorage.getItem("token"), localStorage.getItem("jsonId")).subscribe(result => {
        console.log(result)
+       
      })
 }
 }
